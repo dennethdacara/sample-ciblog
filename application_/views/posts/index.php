@@ -3,18 +3,18 @@
 <hr />
 
 <?php foreach($posts as $post) : ?>
-  <h3><?php echo $post['title']; ?></h3>
+  <h3><?= $post['title']; ?></h3>
 
   <small class="post-date">
-    <?php echo $post['created_at']; ?>
+    <?= $post['created_at']; ?>
   </small>
 
-  <?php echo $post['body']; ?>
+  <?= word_limiter($post['body'], 15); ?>
 
   <p class="mt-3">
     <a 
       class="btn btn-sm btn-info"
-      href="<?php echo site_url('/posts/'.$post['slug']); ?>">
+      href="<?= site_url('/posts/'.$post['slug']); ?>">
       Read More
     </a>
   </p>
