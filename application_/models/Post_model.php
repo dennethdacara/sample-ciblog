@@ -19,18 +19,28 @@ class Post_model extends CI_Model {
   }
 
   public function create_post() {
+
+    if(!$this->session->userdata('logged_in')) {
+      redirect('users/login');
+    }
+
     $slug = url_title(strtolower($this->input->post('title')));
 
     $data = array(
       'title' => $this->input->post('title'),
       'slug' => $slug,
-      'body' => $this->input->post('body')
+      'body' => $this->input->post('body'),
+      'user_id' => $this->session->userdata('user_id')
     );
 
     return $this->db->insert('posts', $data);
   }
 
   public function update_post() {
+
+    if(!$this->session->userdata('logged_in')) {
+      redirect('users/login');
+    }
 
     $slug = url_title(strtolower($this->input->post('title')));
 
@@ -45,6 +55,11 @@ class Post_model extends CI_Model {
   }
 
   public function delete_post($id) {
+
+    if(!$this->session->userdata('logged_in')) {
+      redirect('users/login');
+    }
+    
     $this->db->where('id', $id);
     $this->db->delete('posts');
     return true;

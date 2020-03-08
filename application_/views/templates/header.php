@@ -46,9 +46,54 @@
               </a>
             </li>
           </ul>
+          <ul class="navbar-nav navbar-right">
+            <?php if (!$this->session->userdata('logged_in')) : ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url(); ?>users/login">
+                Login
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url(); ?>users/register">
+                Register
+              </a>
+            </li>
+            <?php endif; ?>
+            <?php if ($this->session->userdata('logged_in')) : ?>
+            <li class="nav-item">
+              <a class="nav-link" href="<?php echo base_url(); ?>users/logout">
+                Logout
+              </a>
+            </li>
+            <?php endif; ?>
+          </ul>
         </div>
 
       </div>
     </nav>
 
     <div class="container mt-4">
+      <!-- flash messages -->
+      <?php if($this->session->flashdata('user_registered')) : ?>
+        <p class="alert alert-primary">
+          <?= $this->session->flashdata('user_registered'); ?>
+        </p>
+      <?php endif; ?>
+
+      <?php if($this->session->flashdata('login_success')) : ?>
+        <p class="alert alert-primary">
+          <?= $this->session->flashdata('login_success'); ?>
+        </p>
+      <?php endif; ?>
+
+      <?php if($this->session->flashdata('login_failed')) : ?>
+        <p class="alert alert-danger">
+          <?= $this->session->flashdata('login_failed'); ?>
+        </p>
+      <?php endif; ?>
+
+      <?php if($this->session->flashdata('logout_success')) : ?>
+        <p class="alert alert-primary">
+          <?= $this->session->flashdata('logout_success'); ?>
+        </p>
+      <?php endif; ?>
